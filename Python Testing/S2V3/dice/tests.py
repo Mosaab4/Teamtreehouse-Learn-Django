@@ -31,3 +31,16 @@ class RollTests(unittest.TestCase):
         test_die = dice.Die(2)
         test_die.value = self.hand1.results[0].value
         self.assertIn(test_die, self.hand1.results)
+
+    def test_bad_description(self):
+        with self.assertRaises(ValueError):
+            dice.Roll('2b6')
+
+    def test_small_die(self):
+        with self.assertRaises(ValueError):
+            dice.Roll('1d2')
+
+
+
+if __name__ == '__main__':
+    unittest.main()

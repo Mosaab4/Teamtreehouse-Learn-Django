@@ -40,5 +40,9 @@ class RollTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             dice.Roll('2b6')
             
+    def test_adding(self):
+        self.assertEqual(self.hand1 + self.hand3, sum(self.hand1.results)+ sum(self.hand3.results))
+            
+            
 if __name__ == '__main__':
     unittest.main()
