@@ -3,6 +3,11 @@ import unittest
 import moves
 
 class MoveTests(unittest.TestCase):
+    def setUp(self):
+        self.rock = moves.Rock()
+        self.paper = moves.Paper()
+        self.scissors = moves.Scissors()
+
     def test_five_plus_five(self):
         assert 5 + 5 ==10
 
@@ -12,17 +17,16 @@ class MoveTests(unittest.TestCase):
 
 
     def test_equal(self):
-        rock1 = moves.Rock()
-        rock2 = moves.Rock()
-
-        self.assertEqual(rock1, rock2)
+        self.assertEqual(self.rock, moves.Rock())
     
     def test_not_equal(self):
-        rock = moves.Rock()
-        paper = moves.Paper()
+        self.assertNotEqual(self.rock, self.paper)
+    
+    def rock_better_than_scissors(self):
+        self.assertGreater(self.rock, self.scissors)
 
-        self.assertNotEqual(rock, paper)
-        
+    def test_paper_worse_than_scissors(self):
+        self.assertLess(self.paper, self.scissors)
 if __name__ == '__main__':
     unittest.main()
 
