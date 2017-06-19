@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.utils import timezone
 
@@ -28,3 +29,27 @@ class StepModelTest(TestCase):
             course = self.course
         )
         self.assertIn(step , self.course.step_set.all())
+
+class CourseViewsTests(TestCase):
+    def setUp(self):
+        self.course = Course.objects.create(
+            title = 'Python Testing',
+            description = 'Learn to write tests in python'
+        )
+        self.course2 = Course.objects.create(
+            title = 'New Course',
+            description ='A new Course'
+        )
+        self.step = Step.objects.create(
+            title = "introduction to doctests",
+            description = "Learn to write tests in your docstrings.",
+            course = self.course
+
+        )
+    def test_course_list_views(self):
+        resp = self.client.get(reverse('courses:list'))
+        
+        self.assertEqual(resp.status_code , 200)
+        self.assertIn(self.course, resp.context['courses'])
+        self.assertIn(self.course2, resp.context['courses'])
+
