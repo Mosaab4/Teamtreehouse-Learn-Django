@@ -53,6 +53,9 @@ class CourseViewsTests(TestCase):
         self.assertIn(self.course, resp.context['courses'])
         self.assertIn(self.course2, resp.context['courses'])
 
+        self.assertTemplateUsed(resp, 'courses/course_list.html')
+        self.assertContains(resp, self.course.title)
+
     def test_course_detail_views(self):
         resp = self.client.get(reverse(
             'courses:detail',
@@ -76,4 +79,6 @@ class CourseViewsTests(TestCase):
         self.assertEqual(self.step , resp.context['step'])
 
         
+
+
 
